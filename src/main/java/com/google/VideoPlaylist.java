@@ -2,8 +2,6 @@ package com.google;
 
 import java.util.*;
 
-import java.util.concurrent.ArrayBlockingQueue;
-
 /** A class used to represent a Playlist */
 class VideoPlaylist {
     Queue<Video> playlist;
@@ -32,15 +30,11 @@ class VideoPlaylist {
 
     public void showVideos() {
         for (Video video : this.playlist) {
-            String title = video.getTitle();
-            String id = video.getVideoId();
-            List<String> tags = video.getTags();
-            String tagList = tags.toString().replaceAll(",","");
 
             if (video.getFlag() != null) {
-                System.out.println(title + " ("+ id + ") " + tagList+" - FLAGGED (reason: "+video.getFlag()+")");
+                System.out.println(video.getTitle() + " ("+ video.getVideoId() + ") " + VideoPlayer.createTagList(video.getTags())+" - FLAGGED (reason: "+video.getFlag()+")");
             } else {
-                System.out.println(title + " ("+ id + ") " + tagList);
+                System.out.println(video.getTitle() + " ("+ video.getVideoId() + ") " + VideoPlayer.createTagList(video.getTags()));
             }
         }
     }

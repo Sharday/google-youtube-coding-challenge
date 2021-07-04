@@ -22,20 +22,20 @@ public class VideoPlayer {
     System.out.printf("%s videos in the library%n", videoLibrary.getVideos().size());
   }
 
+  public static String createTagList(List<String> tags) {
+    return tags.toString().replaceAll(",","");
+  }
+
   public void showAllVideos() {
     System.out.println("Here's a list of all available videos:");
     ArrayList<Video> videos = (ArrayList<Video>) videoLibrary.getVideos();
     Collections.sort(videos, new VideoComparator());
     for (Video video : videos) {
-      String title = video.getTitle();
-      String id = video.getVideoId();
-      List<String> tags = video.getTags();
-      String tagList = tags.toString().replaceAll(",","");
 
       if (video.getFlag() != null) {
-        System.out.println(title + " ("+ id + ") " + tagList+" - FLAGGED (reason: "+video.getFlag()+")");
+        System.out.println(video.getTitle() + " ("+ video.getVideoId() + ") " + createTagList(video.getTags())+" - FLAGGED (reason: "+video.getFlag()+")");
       } else {
-        System.out.println(title + " ("+ id + ") " + tagList);
+        System.out.println(video.getTitle() + " ("+ video.getVideoId() + ") " + createTagList(video.getTags()));
       }
 
     }
@@ -124,14 +124,10 @@ public class VideoPlayer {
     if (playing == null) {
       System.out.println("No video is currently playing");
     } else {
-      String title = playing.getTitle();
-      String id = playing.getVideoId();
-      List<String> tags = playing.getTags();
-      String tagList = tags.toString().replaceAll(",","");
       if (paused) {
-        System.out.println("Currently playing: "+title + " ("+ id + ") " + tagList + " - PAUSED");
+        System.out.println("Currently playing: "+playing.getTitle() + " ("+ playing.getVideoId() + ") " + createTagList(playing.getTags()) + " - PAUSED");
       } else {
-        System.out.println("Currently playing: "+title + " ("+ id + ") " + tagList);
+        System.out.println("Currently playing: "+playing.getTitle() + " ("+ playing.getVideoId() + ") " + createTagList(playing.getTags()));
       }
 
     }
@@ -290,12 +286,8 @@ public class VideoPlayer {
     System.out.println("Here are the results for "+searchTerm+":");
     for (int i=0; i<videoList.size() ; i++) {
       Video video = videoList.get(i);
-      String title = video.getTitle();
-      String id = video.getVideoId();
-      List<String> tags = video.getTags();
-      String tagList = tags.toString().replaceAll(",","");
 
-      System.out.println(i+1 + ") "+title + " ("+ id + ") " + tagList);
+      System.out.println(i+1 + ") "+video.getTitle() + " ("+ video.getVideoId() + ") " + createTagList(video.getTags()));
     }
 
     System.out.println("Would you like to play any of the above? If yes, specify the number of the video.");
@@ -345,12 +337,7 @@ public class VideoPlayer {
     System.out.println("Here are the results for "+videoTag+":");
     for (int i=0; i<videoList.size() ; i++) {
       Video video = videoList.get(i);
-      String title = video.getTitle();
-      String id = video.getVideoId();
-      List<String> tags = video.getTags();
-      String tagList = tags.toString().replaceAll(",","");
-
-      System.out.println(i+1 + ") "+title + " ("+ id + ") " + tagList);
+      System.out.println(i+1 + ") "+video.getTitle() + " ("+ video.getVideoId() + ") " + createTagList(video.getTags()));
     }
 
     System.out.println("Would you like to play any of the above? If yes, specify the number of the video.");
